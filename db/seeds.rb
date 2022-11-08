@@ -17,14 +17,14 @@ Tag.destroy_all
 PrivateMessage.destroy_all
 
 10.times do
-  City.new(
+  City.create(
     name: Faker::Address.city,
     zip_code: Faker::Address.zip
   )
 end
 
 10.times do
-  User.new(
+  User.create(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     description: Faker::Lorem.paragraph,
@@ -35,7 +35,7 @@ end
 end
 
 20.times do
-  Gossip.new(
+  Gossip.create(
     title: Faker::Lorem.sentence,
     content: Faker::Lorem.paragraph,
     user: User.all.sample
@@ -43,20 +43,20 @@ end
 end
 
 10.times do
-  Tag.new(
+  Tag.create(
     title: Faker::Lorem.word
   )
 end
 
 Gossip.all.each do |gossip|
-  TagOfGossip.new(
+  TagOfGossip.create(
     gossip:,
     tag: Tag.all.sample
   )
 end
 
 10.times do
-  PrivateMessage.new(
+  PrivateMessage.create(
     content: Faker::Lorem.paragraph,
     sender: User.all.sample,
     recipient: User.all.sample
