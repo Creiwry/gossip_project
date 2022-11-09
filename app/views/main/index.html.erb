@@ -1,11 +1,16 @@
-<h1>Gossip Page</h1>
-<% Gossip.all.each do |gossip|%>
+<h1 class="text-center" >Gossip Page</h1>
+<div class="container text-center">
+  <div class="row row-cols-4">
+    <% Gossip.all.each do |gossip|%>
 
-  <div>
-    <h2><%= gossip.title %></h2>
-    <h5>By: <%= gossip.user.first_name %></h5>
-    <p> <%= link_to 'See more', gossip_path(gossip.id) %> </p>
+      <div class="col card text-white bg-info mb-3 mr-3" style="max-width: 18rem;">
+        <div class="card-header">By: <%= gossip.user.first_name %></div>
+        <div class="card-body">
+          <h5 class="card-title"><%= gossip.title %></h5>
+          <p class="card-text"><%= link_to 'See more', gossip_path(gossip.id) %></p>
+        </div>
+      </div>
+
+    <% end %>
   </div>
-
-<% end %>
-
+</div>
