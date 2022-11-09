@@ -1,0 +1,11 @@
+<h1>Gossip Page</h1>
+<% Gossip.all.each do |gossip|%>
+
+  <div>
+    <h2><%= gossip.title %></h2>
+    <h5>By: <%= gossip.user.first_name %></h5>
+    <p> <%= link_to 'See more', gossip_path(gossip.id) %> </p>
+  </div>
+
+<% end %>
+
