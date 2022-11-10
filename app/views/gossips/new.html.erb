@@ -1,0 +1,23 @@
+
+<% flash.each do |type, msg| %>
+  <div class="alert alert-warning">
+    <%= msg %>
+  </div>
+<% end %>
+
+
+
+
+<%= form_tag url_for(action: 'create'), method: 'post' do %>
+
+  <%= label_tag 'Title' %>
+  <%= text_field_tag 'title', 'title' %>
+  <br /> <br />
+
+  <%= label_tag 'Content' %>
+  <%= text_area_tag 'content', 'content' %>
+  <br /> <br />
+
+  <%= submit_tag 'Create Gossip' %>
+
+<% end %>
