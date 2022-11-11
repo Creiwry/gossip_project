@@ -3,5 +3,6 @@
 <div>
   <h2><%= @gossip.title %></h2>
   <h5>By: <%= link_to "#{@gossip.user.first_name}", user_path(@gossip.user.id) %></h5>
+  <h5>From: <%= @gossip.user.city.name%></h5>
   <p><%= @gossip.content %></p>
 </div>
