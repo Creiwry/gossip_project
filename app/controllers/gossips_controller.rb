@@ -10,23 +10,26 @@ class GossipsController < ApplicationController
   end
 
   def create
-    puts '$' * 10
-    puts params
-    puts '$' * 10
+    # puts '$' * 10
+    # puts params
+    # puts '$' * 10
 
     @post = Gossip.new(title: params[:title], content: params[:content], user_id: 42)
-    puts @post
+
     if @post.save
-      puts @post
+
       redirect_to root_path, notice: 'Gossip posted successfully'
     else
       messages = []
 
       @post.errors.messages.each do |type, message|
-        messages << message
+    #    type.each do |message|
+          messages << message
+    #    end
       end
 
-      redirect_to new_gossip_path, notice: messages.join(', ')
+
+      redirect_to new_gossip_path, alert: messages.join(', ')
 
     end
   end
