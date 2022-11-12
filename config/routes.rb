@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :gossips
   resources :users, only: [:new, :create, :show]
   resources :cities, only: [:new, :create, :show]
+  resources :comments, exclude: [:show, :index]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
