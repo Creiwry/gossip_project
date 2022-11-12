@@ -28,7 +28,10 @@ gem "jbuilder"
 # gem "redis", "~> 4.0"
 
 gem 'bootstrap', '~> 4.4.1'
+
 gem 'jquery-rails'
+
+gem 'turbo-rails'
 
 gem "solargraph"
 

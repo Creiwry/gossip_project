@@ -6,4 +6,7 @@
   <h5>From: <%= link_to "#{@gossip.user.city.name}", city_path(@gossip.user.city.id) %></h5>
   <p><%= @gossip.content %></p>
   <%= link_to 'Edit', edit_gossip_path(@gossip.id) %>
+  </br>
+  <%= link_to 'Destroy', gossip_path(@gossip.id), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+
 </div>
