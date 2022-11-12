@@ -2,4 +2,4 @@
 <p>Email: <%= @user.email %> </p>
 <p>Age: <%= @user.age %> </p>
 <p>Description: <br> <%= @user.description %> </p>
-
+<p>City: <%= link_to "#{@user.city.name}", city_path(@user.city.id) %> </p>
