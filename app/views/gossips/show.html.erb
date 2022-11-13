@@ -1,3 +1,10 @@
+<% flash.each do |type, msg| %>
+  <div class="alert alert-success">
+    <%= msg %>
+  </div>
+<% end %>
+
+
 <h1>Gossip</h1>
 
 <div>
@@ -8,5 +15,23 @@
   <%= link_to 'Edit', edit_gossip_path(@gossip.id) %>
   </br>
   <%= link_to 'Destroy', gossip_path(@gossip.id), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+</div>
+
+<div class="comments">
+<h1>Comment</h1>
+
+
+  <div>
+    <%= form_with url:"/gossips/#{@gossip.id}/comments" , method: 'post' do %>
+
+      <%= label_tag 'Content' %>
+      <br />
+      <%= text_area_tag 'content', 'content' %>
+      <br /> <br />
+
+      <%= submit_tag 'Comment' %>
+
+    <% end %>
+  </div>
 
 </div>
