@@ -18,6 +18,7 @@
         <div class="card-body">
           <h5 class="card-title"><%= gossip.title %></h5>
           <p class="card-text"><%= link_to 'See more', gossip_path(gossip.id) %></p>
+          <p class="card-text">Comments: <%= Comment.where(gossip_id: gossip.id).all.count%></p>
         </div>
       </div>
 
