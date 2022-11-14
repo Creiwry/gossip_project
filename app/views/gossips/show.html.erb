@@ -24,7 +24,6 @@
   <div>
     <%= form_with url:"/gossips/#{@gossip.id}/comments" , method: 'post' do %>
 
-      <%= label_tag 'Content' %>
       <br />
       <%= text_area_tag 'content', 'content' %>
       <br /> <br />
@@ -34,4 +33,23 @@
     <% end %>
   </div>
 
+</div>
+
+<h2>Comments:</h2>
+<div class="container">
+  <% gossip_comments = [] %>
+  <% Comment.all.each do |comment| %>
+    <% if comment.gossip_id == @gossip.id %>
+      <% gossip_comments << comment %>
+    <% end %>
+  <% end %>
+  <% gossip_comments.each do |comment|%>
+    <div class="card mb-3 mr-3" style="max-width: 18rem;">
+      <div class="card-body">
+        <div class="card-subtitle mb-2 text-muted">By: <%= link_to "#{comment.user.first_name}", user_path(comment.user.id)%></div>
+        <h5 class="card-text"><%= comment.content %></h5>
+          <%= link_to 'Edit', edit_gossip_comment_path(@gossip.id, comment.id), class: 'card-link' %>
+      </div>
+    </div>
+  <% end %>
 </div>

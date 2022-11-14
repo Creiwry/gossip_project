@@ -7,6 +7,7 @@ class GossipsController < ApplicationController
   end
 
   def new
+    @gossip = Gossip.new
   end
 
   def create
@@ -14,22 +15,21 @@ class GossipsController < ApplicationController
     # puts params
     # puts '$' * 10
 
-    @post = Gossip.new(title: params[:title], content: params[:content], user_id: 42)
+    @gossip = Gossip.new(title: params[:title], content: params[:content], user_id: 42)
 
-    if @post.save
-
+    if @gossip.save
       redirect_to root_path, notice: 'Gossip posted successfully'
     else
       messages = []
 
-      @post.errors.messages.each do |type, message|
-    #    type.each do |message|
-          messages << message
-    #    end
-      end
-
-
-      redirect_to new_gossip_path, alert: messages.join(', ')
+    #   @gossip.errors.messages.each do |type, message|
+    # #    type.each do |message|
+    #       messages << message
+    # #    end
+    #   end
+      flash.now[:alert] = @gossip.errors.full_messages.join(', ')
+      render 'new', status: :unprocessable_entity
+      # redirect_to new_gossip_path, alert: messages.join(', ')
 
     end
   end
@@ -43,7 +43,7 @@ class GossipsController < ApplicationController
     post_params = params.require(:gossip).permit(:title, :content)
 
     if @gossip.update(post_params)
-      redirect_to @gossip
+      redirect_to gossip(params[:gossip_id])
     else
       render :edit
     end
