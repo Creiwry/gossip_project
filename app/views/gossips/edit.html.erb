@@ -1,6 +1,18 @@
+<% if flash.any? %>
+  <% flash.each do |type, msg| %>
+    <div class="alert alert-warning" data-turbo-permanent>
+      <%= msg %>
+    </div>
+  <% end %>
+<% end %>
+
+
+
 <h1>Form</h1>
 
-<%= form_for @gossip do |gossip|%>
+<%= form_with(model: @gossip, url: "/gossips/#{@gossip.id}") do |gossip| %>
+
+  <div class="form-group">
   <div class="form-group">
     <label>Title</label>
     <%= gossip.text_field :title, class: 'form-control'%>
@@ -9,8 +21,12 @@
     <label>Content</label>
     <%= gossip.text_area :content, class: 'form-control'%>
   </div>
+
+  <%= label_tag 'Tag' %>
+  <br />
+  <%= gossip.select :tag_id, options_for_select(@tags.collect{ |u| [u.title, u.id] }), { include_blank: "None" }  %>
+  <br /> <br />
   <div class="form-group">
     <button type="submit">Edit</button>
   </div>
 <% end %>
-

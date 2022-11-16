@@ -22,6 +22,10 @@
     <%= label_tag 'Content' %>
     <br />
     <%= text_area_tag 'content', 'content' %>
+    <br />
+    <%= label_tag 'Tag' %>
+    <br />
+    <%= select_tag 'tag_id', options_for_select(@tags.collect{ |u| [u.title, u.id] }), { include_blank: "None" }  %>
     <br /> <br />
 
     <%= submit_tag 'Create Gossip' %>
