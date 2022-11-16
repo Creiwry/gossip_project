@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:new, :create, :show]
   resources :cities, only: [:new, :create, :show]
+  resources :sessions, only: [:new, :create, :destroy]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

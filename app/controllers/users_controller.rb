@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    my_user = User.create(password: params[:password], password_confirmation: params[:password_confirmation])
 
   end
 
