@@ -1,18 +1,19 @@
 require_relative './tag_controller'
 
 class GossipsController < ApplicationController
+
+  before_action :authenticate_user, only: [:index, :create, :edit, :destroy]
   def index
+    @user = User.find(session[:user_id])
   end
 
   def show
     @gossip = Gossip.find_by(id: params[:id])
     @tags = TagsController.show(params[:id])
-    puts @tags
   end
 
   def new
     @tags = tags()
-    puts @tags.class.to_s + " HERE"
     @gossip = Gossip.new
   end
 
@@ -21,35 +22,20 @@ class GossipsController < ApplicationController
     puts params
     puts '$' * 10
     @tags = tags()
-    puts @tags.class.to_s + "HERE"
 
-    @gossip = Gossip.new(title: params[:title], content: params[:content], user_id: 42)
-    puts '$' * 10
-    puts "Tag id " + params[:tag_id]
-    puts '$' * 10
+    @gossip = Gossip.new(title: params[:title], content: params[:content], user_id: session[:user_id])
+
     puts @gossip.id
 
 
     if @gossip.save
-      puts "saved gossip"
       TagsController.create(@gossip.id, params[:tag_id])
       redirect_to root_path, notice: 'Gossip created successfully'
 
     else
-      puts '$' * 10
-      puts "didn't save"
-      puts '$' * 10
 
-      messages = []
-
-    #   @gossip.errors.messages.each do |type, message|
-    # #    type.each do |message|
-    #       messages << message
-    # #    end
-    #   end
       flash.now[:alert] = @gossip.errors.full_messages.join(', ')
       render 'new', status: :unprocessable_entity
-      # redirect_to new_gossip_path, alert: messages.join(', ')
 
     end
   end
@@ -64,11 +50,6 @@ class GossipsController < ApplicationController
     @tags = tags()
     @gossip = Gossip.find(params[:id])
     post_params = params.require(:gossip).permit(:title, :content, :tag_id)
-    puts '$' * 10
-    puts "parameters: " + params.to_s
-    puts post_params
-    puts "gossip id: " + params[:id].to_s
-    puts '$' * 10
 
     if @gossip.update(title: post_params[:title], content: post_params[:content])
       puts '$' * 10
@@ -96,6 +77,12 @@ class GossipsController < ApplicationController
   private
   def tags
     tags = Tag.all
+  end
+
+  def authenticate_user
+    unless current_user
+      flash[:danger] = "Please log in."
+      redirect_to new_session_path
   end
 
 end

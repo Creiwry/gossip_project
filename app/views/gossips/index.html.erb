@@ -1,0 +1,11 @@
+<% flash.each do |type, msg| %>
+  <div class="alert alert-success">
+    <%= msg %>
+  </div>
+<% end %>
+
+
+<h1 class="text-center" >Welcome <%= @user.first_name %></h1>
+<div class="container text-center">
+  <button type="button" class="btn btn-link"><%= link_to 'Create Gossip', new_gossip_path %></button>
+</div>

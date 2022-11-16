@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
     puts params
     puts '$' * 10
 
-    @post = Comment.new(content: params[:content], user_id: 42, gossip_id: params[:gossip_id])
+    @post = Comment.new(content: params[:content], user_id: session[:user_id], gossip_id: params[:gossip_id])
 
     if @post.save
       puts "SUCCESS"
