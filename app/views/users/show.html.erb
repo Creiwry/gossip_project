@@ -3,3 +3,9 @@
 <p>Age: <%= @user.age %> </p>
 <p>Description: <br> <%= @user.description %> </p>
 <p>City: <%= link_to "#{@user.city.name}", city_path(@user.city.id) %> </p>
+<%= link_to "Edit", edit_user_path(session[:user_id]) %>
+</br>
+</br>
+<div class="container text-center">
+  <button type="button" class="btn btn-link"><%= link_to 'Create Gossip', new_gossip_path %></button>
+</div>

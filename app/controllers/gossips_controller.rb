@@ -43,6 +43,12 @@ class GossipsController < ApplicationController
   def edit
     @tags = tags()
     @gossip = Gossip.find_by(id: params[:id])
+    if @gossip.user == current_user
+      @gossip
+    else
+      flash[:danger] = "Please log in."
+      redirect_to new_session_path
+    end
   end
 
   def update
@@ -70,8 +76,14 @@ class GossipsController < ApplicationController
 
   def destroy
     @gossip = Gossip.find(params[:id])
-    @gossip.destroy
-    redirect_to root_path, notice: 'Gossip deleted successfully'
+    @tags = tags()
+    if @gossip.user == current_user
+      @gossip.destroy
+      redirect_to root_path, notice: 'Gossip deleted successfully'
+    else
+      flash[:danger] = "Please log in."
+      redirect_to new_session_path
+    end
   end
 
   private
@@ -83,6 +95,7 @@ class GossipsController < ApplicationController
     unless current_user
       flash[:danger] = "Please log in."
       redirect_to new_session_path
+    end
   end
 
 end

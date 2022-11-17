@@ -22,7 +22,8 @@ class UsersController < ApplicationController
       password_confirmation: params[:password_confirmation]
     )
     if my_user.save
-      redirect_to new_session_path
+      log_in(my_user)
+      redirect_to root_path
     else
       flash.now[:alert] = 'something went wrong'
       render 'new', status: :unprocessable_entity
@@ -31,9 +32,26 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(session[:user_id])
   end
 
   def update
+
+    @user = User.find(session[:user_id])
+    post_params = params.require(:user).permit(:age, :description)
+    puts '$' * 10
+    puts post_params
+    puts @user.inspect
+    puts '$' * 10
+
+    if @user.update(age: post_params[:age], description: post_params[:description]).authenticate(password: @user.password_digest)
+      redirect_to 'show', notice: 'success'
+
+    else
+      flash.now[:alert] = @user.errors.full_messages.join(', ')
+      render :edit, status: :unprocessable_entity
+    end
+
   end
 
   def destroy

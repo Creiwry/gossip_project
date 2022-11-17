@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :gossips do
     resources :comments
   end
-  resources :users, only: [:new, :create, :show]
+  resources :users
   resources :cities, only: [:new, :create, :show]
   resources :sessions, only: [:new, :create, :destroy]
 
